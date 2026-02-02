@@ -1,12 +1,19 @@
 FROM php:8.2-apache
 
-# Installer dépendances système
+# Dépendances système
 RUN apt-get update && apt-get install -y \
     git unzip libpq-dev libzip-dev \
     && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip
 
-# Activer mod_rewrite (Laravel)
+# Activer rewrite
 RUN a2enmod rewrite
+
+# Changer le DocumentRoot vers /public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
+    /etc/apache2/sites-available/*.conf \
+    /etc/apache2/apache2.conf
 
 # Dossier de travail
 WORKDIR /var/www/html
@@ -20,11 +27,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Installer dépendances Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# Permissions
+# Permissions Laravel
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Port Render
 EXPOSE 10000
 
-# Démarrage Apache
 CMD ["apache2-foreground"]
