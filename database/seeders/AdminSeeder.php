@@ -126,6 +126,12 @@ class AdminSeeder extends Seeder
             'annee' => '2025',
             'inscription' => 1
         ]);
+        Hackaton::create([
+            'pco_1' => 'SILOUE Emmanek',
+            'pco_2' => 'AGO Marc Ezéchiel',
+            'annee' => '2026',
+            'inscription' => 1
+        ]);
 
 
         foreach (Niveau::where('quiz_available', 1)->get() as $niv) {
