@@ -3,6 +3,8 @@ FROM php:8.2-apache
 # Dépendances système
 RUN apt-get update && apt-get install -y \
     git unzip libpq-dev libzip-dev \
+    zip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip
 
 # Activer rewrite
@@ -28,7 +30,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
 
 # Permissions Laravel
-RUN chown -R www-data:www-data storage bootstrap/cache
+RUN chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
 EXPOSE 10000
 
