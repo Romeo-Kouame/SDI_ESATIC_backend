@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libzip-dev \
     libicu-dev \
+    libpq-dev \
     zip \
     unzip \
     git \
@@ -16,6 +17,7 @@ RUN apt-get update && apt-get install -y \
         gd \
         pdo \
         pdo_mysql \
+        pdo_pgsql \
         zip \
         intl
 
