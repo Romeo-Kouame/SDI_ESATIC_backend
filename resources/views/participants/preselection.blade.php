@@ -132,7 +132,7 @@
                         Nous vous invitons également à nous rejoindre sur WhatsApp pour de plus
                         amples informations.
 
-                        <u><a class="text-green-600 font-bold" href="https://chat.whatsapp.com/BdJQ02wxS9j4DbfdOFhmLn">Groupe WhatsApp</a></u>
+                        <u><a class="text-green-600 font-bold" href="https://chat.whatsapp.com/JK5sFrSt3V0JoBNrHJOhMl?mode=gi_t">Groupe WhatsApp</a></u>
 
                         <br><br>
                         NB : La vidéo doit être remise au plus tard le <span class="text-red-600 font-bold">Mardi 24 janvier 2023 à 18h00</span>

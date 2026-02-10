@@ -10,7 +10,7 @@ Nous désirons par ce mail féliciter votre équipe {{ $data['equipe'] }} pour v
 
 Dans la même veine nous desirons vous inviter à rejoindre le groupe WhatsApp d'informations en cliquant sur le button ci-dessous.
 
-@component('mail::button', ['url' => 'https://chat.whatsapp.com/HClO6sWPAQZFjzB7bNgivr'])
+@component('mail::button', ['url' => 'https://chat.whatsapp.com/JK5sFrSt3V0JoBNrHJOhMl?mode=gi_t'])
 Rejoindre
 @endcomponent
 
