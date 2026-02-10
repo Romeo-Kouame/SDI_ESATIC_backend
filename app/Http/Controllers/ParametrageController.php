@@ -105,11 +105,21 @@ class ParametrageController extends Controller
     // --------------------------------------------------------------------------------------------- //
 
     // ----- CLASSES TAB ---------- CLASSES TAB ---------- CLASSES TAB ---------- CLASSES TAB ----- //
-    public function renderclasse()
+    public function renderclasse(Request $request)
     {
+        $classesQuery = Classe::orderBy('created_at', 'DESC')->with('niveau');
+
+        $niveauId = $request->input('niveauId') ?? $request->input('niveau_id');
+        if ($niveauId !== '' && $niveauId !== null) {
+            $classesQuery->where('niveau_id', $niveauId);
+        }
+
+        $classes = $classesQuery->get();
         $data = [
             'niveaux' => ModelsNiveau::all(),
-            'classes' => Classe::orderBy('created_at', 'DESC')->with('niveau')->get()
+            'classes' => $classes,
+            'classes_count' => $classes->count(),
+            'niveau_id_filter' => $niveauId !== '' && $niveauId !== null ? (int) $niveauId : null,
         ];
 
         $response = [
@@ -122,7 +132,7 @@ class ParametrageController extends Controller
 
     public function createclasse(Request $request)
     {
-        if (!$request->libelle || !$request->niveau_id || $request->isEsatic) {
+        if (!$request->libelle || !$request->niveau_id) {
             $response = [
                 'status' => false,
                 'message' => "Remplissez tout les champs correctement",
@@ -131,7 +141,7 @@ class ParametrageController extends Controller
             Classe::create([
                 'libelle' => $request->libelle,
                 'niveau_id' => $request->niveau_id,
-                'esatic' => $request->isEsatic,
+                'esatic' => $request->input('isEsatic', 1),
             ]);
 
             $response = [
@@ -158,8 +168,8 @@ class ParametrageController extends Controller
                 $classe->libelle = $request->libelle;
             if ($request->niveau_id)
                 $classe->niveau_id = $request->niveau_id;
-            if ($request->isEsatic)
-                $classe->isEsatic = $request->isEsatic;
+            if ($request->has('isEsatic'))
+                $classe->esatic = $request->boolean('isEsatic');
 
             $classe->save();
 
